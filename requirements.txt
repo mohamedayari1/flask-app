@@ -1,0 +1,4 @@
+flask==1.0.2pip 
+# pulumi
+# pulumi-azure-native 
+# pulumi-kubernetes

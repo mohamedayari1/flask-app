@@ -1,0 +1,13 @@
+# kind specifies this is a Service resource.
+kind: Service
+
+# apiVersion specifies the Kubernetes API version used for the Service resource.
+apiVersion: v1
+
+# metadata contains information about the Service, such as its name.
+metadata:
+  name: flask-svc  # The name of the Service.
+
+# spec defines the desired behavior of the Service.
+spec:
+  selector

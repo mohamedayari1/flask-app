@@ -1,0 +1,40 @@
+# apiVersion specifies the Kubernetes API version used for the Deployment resource.
+apiVersion: apps/v1
+
+# kind specifies that this is a Deployment resource.
+kind: Deployment
+
+# metadata contains information about the Deployment, such as its name and labels.
+metadata:
+  name: flask-app  # The name of the Deployment.
+  labels:
+    app: flask     # Labels help categorize and organize objects. In this case, we label it "flask".
+    env: dev       # This label specifies the environment (dev for development).
+
+# spec defines the desired state of the Deployment.
+spec:
+  replicas: 2      # We want 2 replicas (instances) of our Flask application running.
+  
+  # selector defines how Kubernetes will know which Pods are managed by this Deployment.
+  selector:
+    matchLabels:
+      app: flask   # It selects Pods with the label 'app: flask'.
+
+  # template defines the Pod specification, essentially how each replica should be configured.
+  template:
+    metadata:
+      labels:
+        app: flask  # This label is used to match the Pods with the Deployment.
+        env: dev    # The environment label again, useful for filtering by environment.
+
+    # spec defines the containers that will run inside the Pod.
+    spec:
+      containers:
+      - name: flask  # The name of the container.
+        image: cloudlifeacr.azurecr.io/k8sflask  # Docker image of the Flask app hosted on Azure Container Registry (ACR).
+        
+        # ports specifies the container's network ports.
+        ports:
+        - name: http         # Port name (useful for identifying it).
+          containerPort: 8080 # This is the port the Flask app listens to (as defined in app.py).
+          protocol: TCP      # Protocol used by this port.
